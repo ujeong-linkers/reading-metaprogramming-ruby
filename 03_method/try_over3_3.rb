@@ -111,6 +111,8 @@ module TryOver3::TaskHelper
     end
 
     klass.define_singleton_method :const_missing do |const_name|
+      return super(const_name) unless klass.respond_to?(const_name.downcase)
+
       Class.new do
         define_singleton_method :run do
           warn "Warning: #{klass.name}::#{const_name}.run is deprecated"
