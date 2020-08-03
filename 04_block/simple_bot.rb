@@ -26,7 +26,7 @@
 class SimpleBot
   def self.inherited(subclass)
     subclass.instance_variable_set(:@settings, Object.new)
-    subclass.instance_variable_set(:@responds, {})
+    subclass.instance_variable_set(:@responses, {})
   end
 
   def self.settings
@@ -40,10 +40,10 @@ class SimpleBot
   end
 
   def self.respond(keyword, &block)
-    self.instance_variable_get(:@responds)[keyword] = block
+    self.instance_variable_get(:@responses)[keyword] = block
   end
 
   def ask(obj)
-    self.class.instance_variable_get(:@responds)[obj]&.call
+    self.class.instance_variable_get(:@responses)[obj]&.call
   end
 end
