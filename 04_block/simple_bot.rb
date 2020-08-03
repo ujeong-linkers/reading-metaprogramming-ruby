@@ -32,17 +32,17 @@ class SimpleBot
   end
 
   def self.settings
-    self.instance_variable_get(:@settings)
+    @settings
   end
 
   def self.setting(key, value)
-    self.instance_variable_get(:@settings).define_singleton_method(key) do
+    @settings.define_singleton_method(key) do
       value
     end
   end
 
   def self.respond(keyword, &block)
-    self.instance_variable_get(:@responses)[keyword] = block
+    @responses[keyword] = block
   end
 
   def ask(obj)
