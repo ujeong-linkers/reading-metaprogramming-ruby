@@ -25,8 +25,10 @@
 
 class SimpleBot
   def self.inherited(subclass)
-    subclass.instance_variable_set(:@settings, Object.new)
-    subclass.instance_variable_set(:@responses, {})
+    subclass.class_eval do
+      @settings = Object.new
+      @responses = {}
+    end
   end
 
   def self.settings
