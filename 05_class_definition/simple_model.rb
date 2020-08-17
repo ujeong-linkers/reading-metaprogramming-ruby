@@ -24,8 +24,8 @@ module SimpleModel
           instance_variable_get("@#{attr}")
         end
 
-        define_method("#{attr}=") do |value, by_initialize: false|
-          @changed_attr << attr unless by_initialize
+        define_method("#{attr}=") do |value, at_initialization: false|
+          @changed_attr << attr unless at_initialization
           instance_variable_set("@#{attr}", value)
         end
 
@@ -45,7 +45,7 @@ module SimpleModel
 
     hash.keys.each do |key|
       if respond_to?("#{key}=")
-        send("#{key}=", hash[key], by_initialize: true)
+        send("#{key}=", hash[key], at_initialization: true)
       end
     end
 
