@@ -25,23 +25,23 @@ module SimpleModel
         end
 
         define_method("#{attr}=") do |value, at_initialization: false|
-          @changed_attr << attr unless at_initialization
+          @attr_change_log << attr unless at_initialization
           instance_variable_set("@#{attr}", value)
         end
 
         define_method("#{attr}_changed?") do
-          @changed_attr.include?(attr)
+          @attr_change_log.include?(attr)
         end
       end
     end
   end
 
   def changed?
-    @changed_attr.any?
+    @attr_change_log.any?
   end
 
   def initialize(hash)
-    @changed_attr = []
+    @attr_change_log = []
 
     hash.keys.each do |key|
       if respond_to?("#{key}=")
