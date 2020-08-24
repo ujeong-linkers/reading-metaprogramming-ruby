@@ -53,14 +53,14 @@ module SimpleMock
       @_method_call_log[method] += 1 if @_method_call_log&.key?(method)
       value
     end
-    @mock_methods ||= []
-    @mock_methods << method
+    @_mock_methods ||= []
+    @_mock_methods << method
   end
 
   def watch(method)
     @_method_call_log ||= {}
     @_method_call_log[method] ||= 0
-    return if @mock_methods&.include?(method)
+    return if @_mock_methods&.include?(method)
 
     singleton_class.class_eval do
       alias_method("old_#{method}", method)
