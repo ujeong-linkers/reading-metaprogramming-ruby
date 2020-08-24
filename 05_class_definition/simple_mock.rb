@@ -64,11 +64,11 @@ module SimpleMock
 
     singleton_class.class_eval do
       alias_method("old_#{method}", method)
-    end
 
-    define_singleton_method(method) do
-      @_method_call_log[method] += 1
-      send("old_#{method}")
+      define_method(method) do
+        @_method_call_log[method] += 1
+        send("old_#{method}")
+      end
     end
   end
 
