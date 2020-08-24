@@ -62,7 +62,7 @@ module SimpleMock
     @_method_call_log[method] ||= 0
     return if @mock_methods&.include?(method)
 
-    self.class.class_eval do
+    singleton_class.class_eval do
       alias_method("old_#{method}", method)
     end
 
